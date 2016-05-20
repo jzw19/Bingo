@@ -1,0 +1,30 @@
+<div class="container">
+  <h3>The last move made was <%= @move_made %></h3>
+  <% @board.each_with_index do |row, i| %>
+    <div class="row">
+    <% row.each_with_index do |cell, j| %>
+      <div class="board-cell" style="display:inline-block; border: 2px solid black; padding: 15px; width: 80px; margin: 10px;">
+        <% if @player_moves[i][j] != nil %>
+          <%= @player_moves[i][j] %>
+        <% else %>
+          <%= cell %>
+        <% end %>
+      </div>
+    <% end %>
+    </div><br />
+  <% end %>
+
+  <% unless @game_over %>
+    <h3>Pick a card</h3>
+    <% 10.times do |i| %>
+      <a href="/game/make_move?move=<%= i + 1 %>">Card</a>
+    <% end %>
+  <% end %>
+
+  <% if @message != '' %>
+    <h3><%= @message %></h3>
+    <% if @game_over %>
+      <h3><a href="/game?restart=true">Play Again?</a></h3>
+    <% end %>
+  <% end %>
+</div>
